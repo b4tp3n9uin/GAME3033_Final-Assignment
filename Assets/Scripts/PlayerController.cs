@@ -9,11 +9,15 @@ public class PlayerController : MonoBehaviour
     public bool isRunning;
     public bool isJumping;
 
+    [Header("Weapon Variables")]
+    public bool isAiming;
+
     [Header("Locomotion")]
     public float walkSpeed = 5;
     public float runSpeed = 8;
     public float jumpForce = 5;
-    public float aimSensitivity = 1;
+
+    private float aimSensitivity = 1;
 
     public Animator anim;
     Rigidbody rb;
@@ -38,7 +42,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // X-Axis Rotation
+        // Set Sensitivity
         followTransform.transform.rotation *= Quaternion.AngleAxis(LookInput.x * aimSensitivity, Vector3.up);
         followTransform.transform.rotation *= Quaternion.AngleAxis(LookInput.y * aimSensitivity, Vector3.left);
 
@@ -103,6 +107,11 @@ public class PlayerController : MonoBehaviour
         LookInput = val.Get<Vector2>();
     }
 
+    public void OnAim(InputValue val)
+    {
+        isAiming = val.isPressed;
+    }
+
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Ground") && !isJumping)
@@ -112,5 +121,10 @@ public class PlayerController : MonoBehaviour
 
         isJumping = false;
         anim.SetBool(isJumpingHash, false);
+    }
+
+    public void SetSensitivity(float sensitivity)
+    {
+        aimSensitivity = sensitivity;
     }
 }
