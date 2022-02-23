@@ -12,6 +12,10 @@ public class ThirdPersonShooter : MonoBehaviour
     private LayerMask aimColliderMask = new LayerMask();
     [SerializeField]
     private Transform debugTransform;
+    [SerializeField]
+    private Transform ofBulletPrefab;
+    [SerializeField]
+    private Transform muzzle;
 
     private PlayerController playerController;
 
@@ -28,10 +32,21 @@ public class ThirdPersonShooter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector3 mouseWorldPosition = Vector3.zero;
+
+        Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
+        Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
+        if (Physics.Raycast(ray, out RaycastHit raycastHit, 999f, aimColliderMask))
+        {
+            debugTransform.position = raycastHit.point;
+            mouseWorldPosition = raycastHit.point;
+        }
+
         if (playerController.isAiming)
         {
             aimCam.gameObject.SetActive(true);
             playerController.SetSensitivity(AimingSensitivity);
+            
         }
         else
         {
@@ -39,11 +54,11 @@ public class ThirdPersonShooter : MonoBehaviour
             playerController.SetSensitivity(NormalSensitivity);
         }
 
-        Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
-        Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
-        if (Physics.Raycast(ray, out RaycastHit raycastHit, 999f, aimColliderMask))
+        if (playerController.isShooting)
         {
-            debugTransform.position = raycastHit.point;
+            Vector3 aimDir = (mouseWorldPosition - muzzle.position).normalized;
+            Instantiate(ofBulletPrefab, muzzle.position, Quaternion.LookRotation(aimDir, Vector3.up));
+            playerController.isShooting = false;
         }
     }
 }
