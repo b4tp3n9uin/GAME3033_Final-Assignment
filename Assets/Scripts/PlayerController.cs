@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Weapon Variables")]
     public bool isAiming;
+    public bool isShooting;
 
     [Header("Locomotion")]
     public float walkSpeed = 5;
@@ -110,6 +111,11 @@ public class PlayerController : MonoBehaviour
     public void OnAim(InputValue val)
     {
         isAiming = val.isPressed;
+    }
+
+    public void OnShoot(InputValue val)
+    {
+        isShooting = val.isPressed;
     }
 
     private void OnCollisionEnter(Collision other)
