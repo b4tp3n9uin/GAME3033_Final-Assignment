@@ -18,6 +18,7 @@ public class ThirdPersonShooter : MonoBehaviour
     private Transform muzzle;
 
     private PlayerController playerController;
+    private Animator anim;
 
     [Header("Sensitivity Values")]
     public float NormalSensitivity = 1;
@@ -27,6 +28,7 @@ public class ThirdPersonShooter : MonoBehaviour
     void Start()
     {
         playerController = GetComponent<PlayerController>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -46,12 +48,14 @@ public class ThirdPersonShooter : MonoBehaviour
         {
             aimCam.gameObject.SetActive(true);
             playerController.SetSensitivity(AimingSensitivity);
+            anim.SetLayerWeight(1, Mathf.Lerp(anim.GetLayerWeight(1), 0.7f, Time.deltaTime * 10f));
             
         }
         else
         {
             aimCam.gameObject.SetActive(false);
             playerController.SetSensitivity(NormalSensitivity);
+            anim.SetLayerWeight(1, Mathf.Lerp(anim.GetLayerWeight(1), 0f, Time.deltaTime * 10f));
         }
 
         if (playerController.isShooting)

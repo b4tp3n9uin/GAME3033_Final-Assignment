@@ -6,6 +6,9 @@ public class BulletProjectile : MonoBehaviour
 {
     private Rigidbody bullet_rb;
 
+    [SerializeField]
+    private Transform blood; 
+
     private void Awake()
     {
         bullet_rb = GetComponent<Rigidbody>();
@@ -17,8 +20,13 @@ public class BulletProjectile : MonoBehaviour
         bullet_rb.velocity = transform.forward * speed;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision other)
     {
+        if (other.gameObject.CompareTag("Zombie"))
+        {
+            Instantiate(blood, transform.position, Quaternion.identity);
+        }
+
         Destroy(gameObject);
     }
 }

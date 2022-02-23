@@ -92,15 +92,21 @@ public class PlayerController : MonoBehaviour
     {
         if (isJumping) return;
 
-        anim.SetBool(isJumpingHash, true);
-        isJumping = val.isPressed;
-        rb.AddForce((transform.up + MoveDirection) * jumpForce, ForceMode.Impulse);
+        if (!isAiming)
+        {
+            anim.SetBool(isJumpingHash, true);
+            isJumping = val.isPressed;
+            rb.AddForce((transform.up + MoveDirection) * jumpForce, ForceMode.Impulse);
+        }
     }
 
     public void OnRun(InputValue val)
     {
-        isRunning = val.isPressed;
-        anim.SetBool(isRunningHash, isRunning);
+        if (!isAiming)
+        {
+            isRunning = val.isPressed;
+            anim.SetBool(isRunningHash, isRunning);
+        }
     }
 
     public void OnLook(InputValue val)
@@ -110,12 +116,14 @@ public class PlayerController : MonoBehaviour
 
     public void OnAim(InputValue val)
     {
-        isAiming = val.isPressed;
+        if (!isRunning && !isJumping)
+            isAiming = val.isPressed;
     }
 
     public void OnShoot(InputValue val)
     {
-        isShooting = val.isPressed;
+        if (isAiming)
+            isShooting = val.isPressed;
     }
 
     private void OnCollisionEnter(Collision other)
