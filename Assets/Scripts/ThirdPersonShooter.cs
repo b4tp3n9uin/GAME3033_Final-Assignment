@@ -21,7 +21,7 @@ public class ThirdPersonShooter : MonoBehaviour
     private Animator anim;
 
     [Header("Sensitivity Values")]
-    public float NormalSensitivity = 1;
+    public float NormalSensitivity = .8f;
     public float AimingSensitivity =.5f;
 
     // Start is called before the first frame update
