@@ -2,11 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.InputSystem;
 
 public class ThirdPersonShooter : MonoBehaviour
 {
     [SerializeField]
     private CinemachineVirtualCamera aimCam;
+    [SerializeField]
+    private LayerMask aimColliderMask = new LayerMask();
+    [SerializeField]
+    private Transform debugTransform;
 
     private PlayerController playerController;
 
@@ -32,6 +37,13 @@ public class ThirdPersonShooter : MonoBehaviour
         {
             aimCam.gameObject.SetActive(false);
             playerController.SetSensitivity(NormalSensitivity);
+        }
+
+        Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
+        Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
+        if (Physics.Raycast(ray, out RaycastHit raycastHit, 999f, aimColliderMask))
+        {
+            debugTransform.position = raycastHit.point;
         }
     }
 }
