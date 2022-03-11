@@ -58,6 +58,15 @@ public class ThirdPersonShooter : MonoBehaviour
             anim.SetLayerWeight(1, Mathf.Lerp(anim.GetLayerWeight(1), 0f, Time.deltaTime * 10f));
         }
 
+        if (playerController.isReloading)
+        {
+            anim.SetLayerWeight(2, Mathf.Lerp(anim.GetLayerWeight(2), 0.7f, Time.deltaTime * 10f));
+        }
+        else
+        {
+            anim.SetLayerWeight(2, Mathf.Lerp(anim.GetLayerWeight(2), 0f, Time.deltaTime * 10f));
+        }
+
         if (playerController.isShooting)
         {
             Vector3 aimDir = (mouseWorldPosition - muzzle.position).normalized;

@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [Header("Weapon Variables")]
     public bool isAiming;
     public bool isShooting;
+    public bool isReloading;
 
     [Header("Locomotion")]
     public float walkSpeed = 5;
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public Animator anim;
     Rigidbody rb;
     public GameObject followTransform;
+    public GameObject crossHair;
 
     Vector2 InputVector = Vector2.zero;
     Vector3 MoveDirection = Vector3.zero;
@@ -32,12 +34,15 @@ public class PlayerController : MonoBehaviour
     public readonly int moveYHash = Animator.StringToHash("MovementY");
     public readonly int isJumpingHash = Animator.StringToHash("IsJumping");
     public readonly int isRunningHash = Animator.StringToHash("IsRunning");
+    public readonly int isReloadingHash = Animator.StringToHash("isReloading");
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
+
+        crossHair.SetActive(false);
     }
 
     // Update is called once per frame
@@ -116,14 +121,26 @@ public class PlayerController : MonoBehaviour
 
     public void OnAim(InputValue val)
     {
-        if (!isRunning && !isJumping)
+        if (!isRunning && !isJumping && !isReloading)
+        {
             isAiming = val.isPressed;
+            crossHair.SetActive(isAiming);
+        }
     }
 
     public void OnShoot(InputValue val)
     {
         if (isAiming)
             isShooting = val.isPressed;
+    }
+
+    public void OnReload(InputValue val)
+    {
+        if (!isAiming)
+        {
+            isReloading = val.isPressed;
+            anim.SetBool(isReloadingHash, true);
+        }
     }
 
     private void OnCollisionEnter(Collision other)
