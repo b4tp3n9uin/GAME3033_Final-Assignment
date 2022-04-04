@@ -43,6 +43,9 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
 
         crossHair.SetActive(false);
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
