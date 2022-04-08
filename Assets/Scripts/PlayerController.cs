@@ -36,6 +36,13 @@ public class PlayerController : MonoBehaviour
     public readonly int isRunningHash = Animator.StringToHash("IsRunning");
     public readonly int isReloadingHash = Animator.StringToHash("isReloading");
 
+    public GameManager gameManager;
+
+    private void Awake()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +53,8 @@ public class PlayerController : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        gameManager.isPaused = false;
     }
 
     // Update is called once per frame
@@ -119,7 +128,8 @@ public class PlayerController : MonoBehaviour
 
     public void OnLook(InputValue val)
     {
-        LookInput = val.Get<Vector2>();
+        if (!gameManager.isPaused)
+            LookInput = val.Get<Vector2>();
     }
 
     public void OnAim(InputValue val)
@@ -144,6 +154,11 @@ public class PlayerController : MonoBehaviour
             isReloading = val.isPressed;
             anim.SetBool(isReloadingHash, true);
         }
+    }
+
+    public void OnPause(InputValue value)
+    {
+        gameManager.PausePressed();
     }
 
     private void OnCollisionEnter(Collision other)
