@@ -8,15 +8,13 @@ public class GameManager : MonoBehaviour
     public GameObject PausePannel;
     public bool isPaused;
 
-    private void Awake()
-    {
-        isPaused = false;
-    }
-
+    
     // Start is called before the first frame update
     void Start()
     {
+        isPaused = false;
         PausePannel.SetActive(false);
+        Time.timeScale = 1;
     }
 
     // Update is called once per frame
