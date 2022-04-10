@@ -38,6 +38,9 @@ public class PlayerController : MonoBehaviour
 
     public GameManager gameManager;
 
+    //Health
+    float health;
+
     private void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
@@ -53,6 +56,8 @@ public class PlayerController : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        health = 250;
     }
 
     // Update is called once per frame
@@ -168,6 +173,15 @@ public class PlayerController : MonoBehaviour
 
         isJumping = false;
         anim.SetBool(isJumpingHash, false);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            health -= 7.5f;
+            Debug.Log("Health: " + health);
+        }
     }
 
     public void SetSensitivity(float sensitivity)
