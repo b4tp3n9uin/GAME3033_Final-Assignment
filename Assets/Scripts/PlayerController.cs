@@ -38,8 +38,13 @@ public class PlayerController : MonoBehaviour
 
     public GameManager gameManager;
 
+    //Points
+    public static int points;
+    int startingPoints = 100;
+
     //Health
-    float health;
+    public float health;
+    public float maxHealth = 250;
 
     private void Awake()
     {
@@ -57,7 +62,8 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        health = 250;
+        health = maxHealth;
+        points = startingPoints;
     }
 
     // Update is called once per frame

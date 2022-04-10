@@ -20,17 +20,24 @@ public class ZombieAnimator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.Distance(player.position, transform.position) < 2.1f)
+        if (zombieScript.isAlive)
         {
-            // face the player.
-            Vector3 targetPos = new Vector3(player.position.x, transform.position.y, player.position.z);
-            transform.LookAt(targetPos);
+            if (Vector3.Distance(player.position, transform.position) < 2.1f)
+            {
+                // face the player.
+                Vector3 targetPos = new Vector3(player.position.x, transform.position.y, player.position.z);
+                transform.LookAt(targetPos);
 
-            animator.SetInteger("AnimationState", 2); // attack when close.
+                animator.SetInteger("AnimationState", 2); // attack when close.
+            }
+            else
+            {
+                animator.SetInteger("AnimationState", 1); // move when further.
+            }
         }
         else
         {
-            animator.SetInteger("AnimationState", 1); // move when further.
+            animator.SetInteger("AnimationState", 3); // Death animation
         }
     }
 
@@ -39,7 +46,8 @@ public class ZombieAnimator : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Bullet"))
         {
-            zombieScript.DamageZombie(25);
+            if (zombieScript.isAlive)
+                zombieScript.DamageZombie(25);
         }
     }
 }

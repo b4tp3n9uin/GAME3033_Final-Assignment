@@ -145,13 +145,13 @@ MonoBehaviour:
     weaponType: 0
     firingPattern: 0
     weaponName: MP5
-    damage: 35
-    bulletsInClip: 25
-    clipSize: 25
+    damage: 25
+    bulletsInClip: 30
+    clipSize: 30
     firestartDelay: 0
     fireRate: 0.25
     reapeating: 1
-    totalBullets: 500
+    totalBullets: 600
 --- !u!1001 &3062218123328536386
 PrefabInstance:
   m_ObjectHideFlags: 0

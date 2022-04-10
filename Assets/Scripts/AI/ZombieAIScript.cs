@@ -8,12 +8,14 @@ public class ZombieAIScript : MonoBehaviour
     NavMeshAgent navAgent;
     public Transform target;
     float zombieHealth;
+    public bool isAlive;
 
     // Start is called before the first frame update
     void Start()
     {
         navAgent = GetComponent<NavMeshAgent>();
 
+        isAlive = true;
         zombieHealth = 100;
     }
 
@@ -26,8 +28,15 @@ public class ZombieAIScript : MonoBehaviour
     public void DamageZombie(int damageBy)
     {
         zombieHealth -= damageBy;
+        PlayerController.points += 20;
 
         if (zombieHealth <= 0)
-            Destroy(gameObject);
+        {
+            PlayerController.points += 100;
+            isAlive = false;
+            navAgent.speed = 0;
+            Destroy(gameObject, 3);
+        }
+            
     }
 }
