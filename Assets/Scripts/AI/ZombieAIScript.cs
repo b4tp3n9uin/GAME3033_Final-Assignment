@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class ZombieAIScript : MonoBehaviour
 {
     NavMeshAgent navAgent;
-    public Transform target;
+    public GameObject target;
     float zombieHealth;
     public bool isAlive;
 
@@ -17,12 +17,15 @@ public class ZombieAIScript : MonoBehaviour
 
         isAlive = true;
         zombieHealth = 100;
+
+        target = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
     void Update()
     {
-        navAgent.SetDestination(target.position);
+
+        navAgent.SetDestination(target.transform.position);
     }
 
     public void DamageZombie(int damageBy)
