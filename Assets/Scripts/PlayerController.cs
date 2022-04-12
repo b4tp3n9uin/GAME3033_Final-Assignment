@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     Vector2 InputVector = Vector2.zero;
     Vector3 MoveDirection = Vector3.zero;
     Vector2 LookInput = Vector2.zero;
-    
+
     public readonly int moveXHash = Animator.StringToHash("MovementX");
     public readonly int moveYHash = Animator.StringToHash("MovementY");
     public readonly int isJumpingHash = Animator.StringToHash("IsJumping");
@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
     public readonly int isReloadingHash = Animator.StringToHash("isReloading");
 
     public GameManager gameManager;
+    public ThirdPersonShooter thirdPersonShooter;
 
     //Points
     public static int points;
@@ -46,9 +47,14 @@ public class PlayerController : MonoBehaviour
     public float health;
     public float maxHealth = 250;
 
+    //bool isInteracting;
+    bool healthInteractable;
+    public bool ammoInteractable;
+
     private void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
+        thirdPersonShooter = GetComponent<ThirdPersonShooter>();
     }
 
     // Start is called before the first frame update
@@ -170,6 +176,19 @@ public class PlayerController : MonoBehaviour
         gameManager.PausePressed();
     }
 
+    public void OnInteract(InputValue value)
+    {
+        if (healthInteractable && points >= 2000)
+        {
+            BuyHealth();
+        }
+
+        if (ammoInteractable && points >= 2000)
+        {
+            BuyAmmo();
+        }
+    }
+
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Ground") && !isJumping)
@@ -188,10 +207,45 @@ public class PlayerController : MonoBehaviour
             health -= 7.5f;
             Debug.Log("Health: " + health);
         }
+
+        if (other.gameObject.CompareTag("HealthCreate"))
+        {
+            healthInteractable = true;
+        }
+
+        if (other.gameObject.CompareTag("AmmoBox"))
+        {
+            ammoInteractable = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("HealthCreate"))
+        {
+            healthInteractable = false;
+        }
+
+        if (other.gameObject.CompareTag("AmmoBox"))
+        {
+            ammoInteractable = false;
+        }
     }
 
     public void SetSensitivity(float sensitivity)
     {
         aimSensitivity = sensitivity;
+    }
+
+    void BuyHealth()
+    {
+        health = maxHealth;
+        points -= 2000;
+    }
+
+    void BuyAmmo()
+    {
+        thirdPersonShooter.equippedWeapon.weaponStats.totalBullets = 600;
+        points -= 2000;
     }
 }

@@ -8,6 +8,8 @@ TagManager:
   - Zombie
   - Enemy
   - Bullet
+  - HealthCreate
+  - AmmoBox
   layers:
   - Default
   - TransparentFX
