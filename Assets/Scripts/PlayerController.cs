@@ -205,7 +205,16 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             health -= 7.5f;
-            Debug.Log("Health: " + health);
+
+            if (health <= 0)
+            {
+                gameManager.GameOver();
+            }
+        }
+
+        if (other.gameObject.CompareTag("Portal"))
+        {
+            gameManager.WinGame();
         }
 
         if (other.gameObject.CompareTag("HealthCreate"))
