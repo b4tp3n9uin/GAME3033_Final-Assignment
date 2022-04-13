@@ -11,6 +11,7 @@ TagManager:
   - HealthCreate
   - AmmoBox
   - Portal
+  - Door
   layers:
   - Default
   - TransparentFX

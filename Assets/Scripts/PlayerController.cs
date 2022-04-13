@@ -49,7 +49,8 @@ public class PlayerController : MonoBehaviour
 
     //bool isInteracting;
     bool healthInteractable;
-    public bool ammoInteractable;
+    bool ammoInteractable;
+    bool doorInteractable;
 
     private void Awake()
     {
@@ -178,7 +179,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnInteract(InputValue value)
     {
-        if (healthInteractable && points >= 2000)
+        if (healthInteractable && points >= 2500)
         {
             BuyHealth();
         }
@@ -212,6 +213,17 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if (other.gameObject.CompareTag("Door"))
+        {
+            int cost = other.gameObject.GetComponent<AreaBuyableScript>().Cost;
+            doorInteractable = true;
+            if (points >= cost)
+            {
+                points -= cost;
+                other.gameObject.GetComponent<AreaBuyableScript>().BuyDoor();
+            } 
+        }
+
         if (other.gameObject.CompareTag("Portal"))
         {
             gameManager.WinGame();
@@ -230,6 +242,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        if (other.gameObject.CompareTag("Door"))
+        {
+            doorInteractable = false;
+        }
+
         if (other.gameObject.CompareTag("HealthCreate"))
         {
             healthInteractable = false;
@@ -249,7 +266,7 @@ public class PlayerController : MonoBehaviour
     void BuyHealth()
     {
         health = maxHealth;
-        points -= 2000;
+        points -= 2500;
     }
 
     void BuyAmmo()

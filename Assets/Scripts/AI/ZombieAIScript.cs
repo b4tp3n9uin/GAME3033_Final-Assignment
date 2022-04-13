@@ -19,6 +19,8 @@ public class ZombieAIScript : MonoBehaviour
         zombieHealth = 100;
 
         target = GameObject.FindGameObjectWithTag("Player");
+
+        Destroy(gameObject, 200);
     }
 
     // Update is called once per frame
@@ -38,7 +40,7 @@ public class ZombieAIScript : MonoBehaviour
             PlayerController.points += 100;
             isAlive = false;
             navAgent.speed = 0;
-            Destroy(gameObject, 3);
+            Destroy(gameObject, 4);
         }
             
     }
