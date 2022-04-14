@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
 
     public GameManager gameManager;
     public ThirdPersonShooter thirdPersonShooter;
+    public static int key;
 
     //Points
     public static int points;
@@ -61,6 +62,8 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        key = 0;
+
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
 
@@ -226,7 +229,10 @@ public class PlayerController : MonoBehaviour
 
         if (other.gameObject.CompareTag("Portal"))
         {
-            gameManager.WinGame();
+            if (key >= 5)
+            {
+                gameManager.WinGame();
+            }
         }
 
         if (other.gameObject.CompareTag("HealthCreate"))
@@ -238,6 +244,7 @@ public class PlayerController : MonoBehaviour
         {
             ammoInteractable = true;
         }
+        
     }
 
     private void OnTriggerExit(Collider other)

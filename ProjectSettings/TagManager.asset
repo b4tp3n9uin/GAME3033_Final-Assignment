@@ -12,6 +12,7 @@ TagManager:
   - AmmoBox
   - Portal
   - Door
+  - Key
   layers:
   - Default
   - TransparentFX
