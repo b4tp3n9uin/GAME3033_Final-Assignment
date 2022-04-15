@@ -220,7 +220,8 @@ public class PlayerController : MonoBehaviour
         {
             int cost = other.gameObject.GetComponent<AreaBuyableScript>().Cost;
             doorInteractable = true;
-            if (points >= cost)
+
+            if (points >= cost && !other.gameObject.GetComponent<AreaBuyableScript>().isOpen)
             {
                 points -= cost;
                 other.gameObject.GetComponent<AreaBuyableScript>().BuyDoor();

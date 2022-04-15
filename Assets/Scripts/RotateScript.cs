@@ -23,7 +23,6 @@ public class RotateScript : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             PlayerController.key++;
-            Debug.Log("Keys: " + PlayerController.key);
             Destroy(gameObject);
         }
     }
