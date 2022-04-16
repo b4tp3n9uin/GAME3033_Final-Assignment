@@ -2701,8 +2701,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 30, y: 2.7861}
-  m_SizeDelta: {x: 316.99, y: 222.7417}
+  m_AnchoredPosition: {x: 45, y: 0}
+  m_SizeDelta: {x: 346.4437, y: 222.7417}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1482331364
 MonoBehaviour:
@@ -2728,19 +2728,20 @@ MonoBehaviour:
 
     Space - Jump
 
-    Left Click - Shoot
+    Left Click - Shoot (Must Aim First!)
 
-    Right Click
-    - Aim
+    Right
+    Click - Aim (Can''t Run or Reload!)
 
-    Left Shift - Run
+    Left Shift - Run (Can''t Aim!)
 
-    R - Reload
+    R
+    - Reload (Can''t Aim!)
 
     P - Pause
 
-    E - Buy Ammo/Health
-    nearby.'
+    E - Buy Ammo/Health (Must be near
+    Box!)'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

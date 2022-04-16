@@ -48,10 +48,12 @@ public class PlayerController : MonoBehaviour
     public float health;
     public float maxHealth = 250;
 
-    //bool isInteracting;
     bool healthInteractable;
     bool ammoInteractable;
     bool doorInteractable;
+
+    public bool weaponUpgraded;
+    bool upgradeInteractable;
 
     private void Awake()
     {
@@ -74,6 +76,7 @@ public class PlayerController : MonoBehaviour
 
         health = maxHealth;
         points = startingPoints;
+        weaponUpgraded = false;
     }
 
     // Update is called once per frame
@@ -191,6 +194,11 @@ public class PlayerController : MonoBehaviour
         {
             BuyAmmo();
         }
+
+        if (upgradeInteractable && points >= 5000 && !weaponUpgraded)
+        {
+            UpgradeWeapon();
+        }
     }
 
     private void OnCollisionEnter(Collision other)
@@ -225,7 +233,11 @@ public class PlayerController : MonoBehaviour
             {
                 points -= cost;
                 other.gameObject.GetComponent<AreaBuyableScript>().BuyDoor();
-            } 
+            }
+            else if (points < cost && !other.gameObject.GetComponent<AreaBuyableScript>().isOpen)
+            {
+                gameManager.PopUpText("You need "+cost.ToString()+" Points to buy this door!");
+            }
         }
 
         if (other.gameObject.CompareTag("Portal"))
@@ -234,22 +246,37 @@ public class PlayerController : MonoBehaviour
             {
                 gameManager.WinGame();
             }
+            else 
+            {
+                int keysNeeded = 5 - key;
+                gameManager.PopUpText("You need " +keysNeeded.ToString()+ " more keys to unlock Portal.");
+            }
         }
 
         if (other.gameObject.CompareTag("HealthCreate"))
         {
             healthInteractable = true;
+            gameManager.PopUpText("Press 'E' to buy Health for "+2500+ " Points.");
         }
 
         if (other.gameObject.CompareTag("AmmoBox"))
         {
             ammoInteractable = true;
+            gameManager.PopUpText("Press 'E' to buy Full Ammo for " + 2000 + " Points.");
+        }
+
+        if (other.gameObject.CompareTag("Upgrade") && !weaponUpgraded)
+        {
+            upgradeInteractable = true;
+            gameManager.PopUpText("Press 'E' to Upgrade Weapon for " + 5000 + " Points.");
         }
         
     }
 
     private void OnTriggerExit(Collider other)
     {
+        gameManager.PopUpText(" ");
+
         if (other.gameObject.CompareTag("Door"))
         {
             doorInteractable = false;
@@ -263,6 +290,11 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("AmmoBox"))
         {
             ammoInteractable = false;
+        }
+
+        if (other.gameObject.CompareTag("Upgrade"))
+        {
+            upgradeInteractable = false;
         }
     }
 
@@ -281,5 +313,15 @@ public class PlayerController : MonoBehaviour
     {
         thirdPersonShooter.equippedWeapon.weaponStats.totalBullets = 600;
         points -= 2000;
+    }
+
+    void UpgradeWeapon()
+    {
+        thirdPersonShooter.equippedWeapon.weaponStats.clipSize = 100;
+        thirdPersonShooter.equippedWeapon.weaponStats.totalBullets = 2000;
+        thirdPersonShooter.equippedWeapon.weaponStats.weaponName = "MP115X";
+        weaponUpgraded = true;
+
+        points -= 5000;
     }
 }

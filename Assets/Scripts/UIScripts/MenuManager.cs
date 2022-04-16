@@ -17,9 +17,13 @@ public class MenuManager : MonoBehaviour
     [SerializeField]
     GameObject ControlsText;
 
+    
+
     // Start is called before the first frame update
     void Start()
     {
+        
+
         HTPPannel.SetActive(false);
         CreditsPannel.SetActive(false);
 

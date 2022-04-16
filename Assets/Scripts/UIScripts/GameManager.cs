@@ -16,10 +16,15 @@ public class GameManager : MonoBehaviour
     public AudioSource EndMusicSrc;
     public AudioClip EndMusicClip;
 
+    [SerializeField]
+    TMPro.TextMeshProUGUI PopUpPromt;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        PopUpPromt.text = "";
+
         isPaused = false;
         PausePannel.SetActive(false);
 
@@ -31,10 +36,9 @@ public class GameManager : MonoBehaviour
         GameMusicSrc.Play();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void PopUpText(string text)
     {
-        
+        PopUpPromt.text = text;
     }
 
     public void PausePressed()
