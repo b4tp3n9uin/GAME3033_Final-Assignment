@@ -520,8 +520,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 60, y: 2.7861023}
-  m_SizeDelta: {x: 379.8774, y: 222.7417}
+  m_AnchoredPosition: {x: 78.43088, y: 0}
+  m_SizeDelta: {x: 416.7392, y: 243.145}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &503553801
 MonoBehaviour:
@@ -545,10 +545,11 @@ MonoBehaviour:
       m_Calls: []
   m_text: "- Survive the endless hordes of zombies, running away and shooting them.
     \n\n- In order to win the game, you must collect all 5 keys scattered in every
-    room in the map, then go in the portal.\n\n- To buy doors, you must walk up to
-    it, and buy it, if you have enough points to afford it. You will unlock a new
-    area in the map.\n\n- You can buy health or ammo from the box crates on the map,
-    but you must have enough points to afford it."
+    room in the map, then go in the portal located outside the bunker..\n\n- To buy
+    doors, you must walk up to it, and buy it, if you have enough points to afford
+    it. You will unlock a new area in the map.\n\n- You can buy health or ammo from
+    the box crates on the map or even upgrade your weapon. But you must have enough
+    points to afford them first!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -575,13 +576,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 15
-  m_fontSizeBase: 15
+  m_fontSize: 13
+  m_fontSizeBase: 13
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -776,7 +777,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &609302742
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1423,7 +1424,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1155392310
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2726,22 +2727,22 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'WASD - Move
 
-    Space - Jump
+    Space - Jump (Can''t Aim!)
 
-    Left Click - Shoot (Must Aim First!)
+    Left Click - Shoot (Must
+    Aim First!)
 
-    Right
-    Click - Aim (Can''t Run or Reload!)
+    Right Click - Aim (Can''t Run or Reload!)
 
-    Left Shift - Run (Can''t Aim!)
+    Left Shift -
+    Run (Can''t Aim!)
 
-    R
-    - Reload (Can''t Aim!)
+    R - Reload (Can''t Aim!)
 
     P - Pause
 
-    E - Buy Ammo/Health (Must be near
-    Box!)'
+    E - Buy Ammo/Health
+    (Must be near Box!)'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3571,7 +3572,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1898348142
 RectTransform:
   m_ObjectHideFlags: 0

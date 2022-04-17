@@ -173,6 +173,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!isAiming)
         {
+            FindObjectOfType<AudioManager>().Play("Reload");
             isReloading = val.isPressed;
             anim.SetBool(isReloadingHash, true);
         }
@@ -187,18 +188,27 @@ public class PlayerController : MonoBehaviour
     {
         if (healthInteractable && points >= 2500)
         {
+            FindObjectOfType<AudioManager>().Play("Health");
             BuyHealth();
         }
+        else if (healthInteractable && points < 2500) 
+        { FindObjectOfType<AudioManager>().Play("Bad"); }
 
         if (ammoInteractable && points >= 2000)
         {
+            FindObjectOfType<AudioManager>().Play("Ammo");
             BuyAmmo();
         }
+        else if (ammoInteractable && points < 2000)
+        { FindObjectOfType<AudioManager>().Play("Bad"); }
 
         if (upgradeInteractable && points >= 5000 && !weaponUpgraded)
         {
+            FindObjectOfType<AudioManager>().Play("PackAPunch");
             UpgradeWeapon();
         }
+        else if (upgradeInteractable && points < 5000 && !weaponUpgraded)
+        { FindObjectOfType<AudioManager>().Play("Bad"); }
     }
 
     private void OnCollisionEnter(Collision other)
@@ -216,6 +226,8 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
+            FindObjectOfType<AudioManager>().Play("Hurt");
+
             health -= 7.5f;
 
             if (health <= 0)
@@ -231,11 +243,14 @@ public class PlayerController : MonoBehaviour
 
             if (points >= cost && !other.gameObject.GetComponent<AreaBuyableScript>().isOpen)
             {
+                FindObjectOfType<AudioManager>().Play("Door");
+
                 points -= cost;
                 other.gameObject.GetComponent<AreaBuyableScript>().BuyDoor();
             }
             else if (points < cost && !other.gameObject.GetComponent<AreaBuyableScript>().isOpen)
             {
+                FindObjectOfType<AudioManager>().Play("Bad");
                 gameManager.PopUpText("You need "+cost.ToString()+" Points to buy this door!");
             }
         }
@@ -248,6 +263,7 @@ public class PlayerController : MonoBehaviour
             }
             else 
             {
+                FindObjectOfType<AudioManager>().Play("Bad");
                 int keysNeeded = 5 - key;
                 gameManager.PopUpText("You need " +keysNeeded.ToString()+ " more keys to unlock Portal.");
             }

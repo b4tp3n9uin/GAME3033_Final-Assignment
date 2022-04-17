@@ -22,6 +22,7 @@ public class RotateScript : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            FindObjectOfType<AudioManager>().Play("Key");
             PlayerController.key++;
             Destroy(gameObject);
         }

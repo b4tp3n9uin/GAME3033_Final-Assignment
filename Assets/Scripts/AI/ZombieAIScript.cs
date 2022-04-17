@@ -37,6 +37,7 @@ public class ZombieAIScript : MonoBehaviour
 
         if (zombieHealth <= 0)
         {
+            FindObjectOfType<AudioManager>().Play("ZombieDeath");
             PlayerController.points += 100;
             isAlive = false;
             navAgent.speed = 0;

@@ -80,12 +80,15 @@ public class ThirdPersonShooter : MonoBehaviour
         {
             if (equippedWeapon.weaponStats.bulletsInClip > 0)
             {
+                FindObjectOfType<AudioManager>().Play("Shoot");
+
                 Vector3 aimDir = (mouseWorldPosition - muzzle.position).normalized;
                 Instantiate(ofBulletPrefab, muzzle.position, Quaternion.LookRotation(aimDir, Vector3.up));
                 playerController.isShooting = false;
                 equippedWeapon.FireWeapon();
             }
             else {
+                FindObjectOfType<AudioManager>().Play("Click");
                 return;
             }
         }

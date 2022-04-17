@@ -25,6 +25,7 @@ public class ZombieAnimator : MonoBehaviour
             if (Vector3.Distance(player.position, transform.position) < 2.1f)
             {
                 // face the player.
+                
                 Vector3 targetPos = new Vector3(player.position.x, transform.position.y, player.position.z);
                 transform.LookAt(targetPos);
 
